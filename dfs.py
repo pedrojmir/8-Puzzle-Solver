@@ -129,3 +129,5 @@ def find_neighbors(state, visited):
 end_time = time.time()
 cost, path = dfs(initial_puzzle, goal_state)
 print("The path is ", path, " and the cost is ", cost, " and the time is to execute was", (end_time - start_time))
+
+# More comments.
