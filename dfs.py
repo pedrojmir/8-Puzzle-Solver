@@ -32,6 +32,9 @@ start_time = time.time()
 
 
 def dfs(initial_state, goal_state):
+    if not is_solvable(initial_state, goal_state):
+        print("Not solvable")
+        return None
     first_state = [initial_state, ["start"]]
     stack = [first_state]
     visited = []
@@ -44,7 +47,7 @@ def dfs(initial_state, goal_state):
         # Check if the state is the goal state
         if check_state == goal_state:
             final_path = state[1]
-            return len(final_path), final_path
+            return (len(final_path)-1), final_path # The -1 is to remove the "start" from the path
         
         # Add the state to the explored set
         visited.append(state[0])
