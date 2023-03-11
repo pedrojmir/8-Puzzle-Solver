@@ -32,6 +32,9 @@ start_time = time.time()
 
 
 def dfs(initial_state, goal_state):
+    if not is_solvable(initial_state, goal_state):
+        print("Not solvable")
+        return None
     first_state = [initial_state, ["start"]]
     stack = [first_state]
     visited = []
@@ -128,6 +131,6 @@ def find_neighbors(state, visited):
 
 end_time = time.time()
 cost, path = dfs(initial_puzzle, goal_state)
-print("The path is ", path, " and the cost is ", cost, " and the time is to execute was", (end_time - start_time))
+print("The path is ", path, " and the cost is ", cost, " and the time is to execute was", (start_time))
 
 # More comments.
