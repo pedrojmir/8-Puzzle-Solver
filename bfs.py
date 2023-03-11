@@ -1,7 +1,9 @@
+from collections import deque
 import time
 
 initial_puzzle = [1,2,3,4,5,6,7,8,0]
-goal_state = [1,8,2,0,4,3,7,6,5]
+goal_state =     [1,8,2,0,4,3,7,6,5]
+#calculte time before start the program
 
 # Check if initial puzzle is solvable by counting the number of inversions in the initial state and the goal state
 # If the number of inversions is odd, the puzzle is not solvable
@@ -27,7 +29,6 @@ def is_solvable(initial_state, goal_state):
 #                   4,5,6,
 #                   7,8,0]
 
-print(is_solvable(initial_puzzle, goal_state))
 start_time = time.time()
 
 
@@ -36,18 +37,23 @@ def dfs(initial_state, goal_state):
         print("Not solvable")
         return None
     first_state = [initial_state, ["start"]]
-    queue = [first_state]
+
+    dequeStructure = deque()
+    dequeStructure.appendleft(first_state)
     visited = []
     
     # Loop until the stack is empty, if found return the path and amount of moves.
-    while queue:
+    while dequeStructure:
         # Pop the top state from the stack
-        state = queue.pop(0)
+        state = dequeStructure.pop()
+
         check_state = state[0]
         # Check if the state is the goal state
         if check_state == goal_state:
             final_path = state[1]
-            return len(final_path), final_path
+
+            return (len(final_path)-1), final_path # The -1 is to remove the "start" from the path
+
         
         # Add the state to the explored set
         visited.append(state[0])
@@ -58,7 +64,9 @@ def dfs(initial_state, goal_state):
             # Check if the successor has not been explored 
             if successor[0] not in visited:
                 # Add the successor to the stack with the path to reach it
-                queue.append(successor)
+
+                dequeStructure.appendleft(successor)
+
     # If the goal state is not found, return None
     print("Not found end state.")
     return None
@@ -130,8 +138,13 @@ def find_neighbors(state, visited):
 
 
 
+
+
+
 cost, path = dfs(initial_puzzle, goal_state)
-end_time = time.time()
-print("The path is ", path, " and the cost is ", cost, " and the time is to execute was", (end_time - start_time), "seconds.")
+
+
+print("The path is ", path, " and the cost is ", cost, " and the time is to execute was", (time.time() - start_time), "seconds")
+
 
 # More comments.

@@ -1,4 +1,3 @@
-# Hello there, this is test.
+# DFS, BFS, and Dijkstra's Algorithm on 8-Puzzle
 
-This is my third test.
-* Attempt 4.
+The following code implements various algorithms to solve an 8-Puzzle.
