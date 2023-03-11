@@ -1,7 +1,7 @@
 import time
-
-initial_puzzle = [1,2,3,4,5,6,7,8,0]
-goal_state = [1,8,2,0,4,3,7,6,5]
+# DIFFICULT
+# initial_puzzle = [6,1,2,3,4,5,8,7,0]
+# goal_state =     [1,2,3,4,5,6,7,8,0]
 
 # Check if initial puzzle is solvable by counting the number of inversions in the initial state and the goal state
 # If the number of inversions is odd, the puzzle is not solvable
