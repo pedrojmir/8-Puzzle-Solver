@@ -1,9 +1,13 @@
 from collections import deque
 import time
 
-initial_puzzle = [1,2,3,4,5,6,7,8,0]
-goal_state =     [1,8,2,0,4,3,7,6,5]
+# initial_puzzle = [6,1,2,3,4,5,8,7,0]
+# goal_state =     [1,2,3,4,5,6,7,8,0]
 #calculte time before start the program
+
+initial_puzzle = [1,2,3,4,5,6,7,8,0]
+goal_state = [1,8,2,0,4,3,7,6,5]
+
 
 # Check if initial puzzle is solvable by counting the number of inversions in the initial state and the goal state
 # If the number of inversions is odd, the puzzle is not solvable
@@ -40,13 +44,13 @@ def dfs(initial_state, goal_state):
 
     dequeStructure = deque()
     dequeStructure.appendleft(first_state)
-    visited = []
+    visited = {}
+    
     
     # Loop until the stack is empty, if found return the path and amount of moves.
     while dequeStructure:
         # Pop the top state from the stack
         state = dequeStructure.pop()
-
         check_state = state[0]
         # Check if the state is the goal state
         if check_state == goal_state:
@@ -56,13 +60,15 @@ def dfs(initial_state, goal_state):
 
         
         # Add the state to the explored set
-        visited.append(state[0])
+        stateAsString = ''.join(str(i) for i in state[0])
+        visited[stateAsString] = stateAsString
         # Generate the successors of the state
         neighbors = find_neighbors(state, visited)
         # Loop through the successors in reverse order 
         for successor in neighbors[::-1]:
-            # Check if the successor has not been explored 
-            if successor[0] not in visited:
+            # Check if the successor has not been explored
+            checkThis = ''.join(str(i) for i in successor[0]) 
+            if checkThis not in visited:
                 # Add the successor to the stack with the path to reach it
 
                 dequeStructure.appendleft(successor)
@@ -89,7 +95,8 @@ def find_neighbors(state, visited):
         new_state = state[0][:]
         new_state[indexLocation], new_state[indexLocation - 3] = new_state[indexLocation - 3], new_state[indexLocation]
         # Add the new state to the list of neighbors
-        if new_state not in visited:
+        new_state_check = ''.join(str(i) for i in new_state)
+        if new_state_check not in visited:
             new_path = state[1] + ["up"]
             if new_state == goal_state:
                 print("Found goal state")
@@ -101,7 +108,8 @@ def find_neighbors(state, visited):
         new_state = state[0][:]
         new_state[indexLocation], new_state[indexLocation + 3] = new_state[indexLocation + 3], new_state[indexLocation]
         # Add the new state to the list of neighbors
-        if new_state not in visited:
+        new_state_check = ''.join(str(i) for i in new_state)
+        if new_state_check not in visited:
             if new_state == goal_state:
                 print("Found goal state")
                 return [(new_state, new_path)]
@@ -113,7 +121,8 @@ def find_neighbors(state, visited):
         new_state = state[0][:]
         new_state[indexLocation], new_state[indexLocation - 1] = new_state[indexLocation - 1], new_state[indexLocation]
         # Add the new state to the list of neighbors
-        if new_state not in visited:
+        new_state_check = ''.join(str(i) for i in new_state)
+        if new_state_check not in visited:
             if new_state == goal_state:
                 print("Found goal state")
                 return [(new_state, new_path)]
@@ -125,21 +134,14 @@ def find_neighbors(state, visited):
         new_state = state[0][:]
         new_state[indexLocation], new_state[indexLocation + 1] = new_state[indexLocation + 1], new_state[indexLocation]
         # Add the new state to the list of successors
-        if new_state not in visited:
+        new_state_check = ''.join(str(i) for i in new_state)
+        if new_state_check not in visited:
             if new_state == goal_state:
                 print("Found goal state")
                 return [(new_state, new_path)]
             new_path = state[1] + ["right"]
             neighbors.append((new_state, new_path))
     return neighbors
-
-
-
-
-
-
-
-
 
 cost, path = dfs(initial_puzzle, goal_state)
 
