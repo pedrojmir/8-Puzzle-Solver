@@ -1,10 +1,11 @@
 from collections import deque
 import time
 
-initial_puzzle = [6,1,2,3,4,5,8,7,0]
-goal_state =     [1,2,3,4,5,6,7,8,0]
+# initial_puzzle = [6,1,2,3,4,5,8,7,0]
+# goal_state =     [1,2,3,4,5,6,7,8,0]
 #calculte time before start the program
-
+initial_puzzle = [1,2,3,4,5,6,7,8,0]
+goal_state = [1,8,2,0,4,3,7,6,5]
 
 # Check if initial puzzle is solvable by counting the number of inversions in the initial state and the goal state
 # If the number of inversions is odd, the puzzle is not solvable
@@ -52,7 +53,7 @@ def dfs(initial_state, goal_state):
         #check size of dequeStructure
         #print(len(dequeStructure))
         #check size of visited
-        print("Visited length: ", len(visited))
+        #print("Visited length: ", len(visited))
         check_state = state[0]
         # Check if the state is the goal state
         if check_state == goal_state:
@@ -141,13 +142,7 @@ def find_neighbors(state, visited):
             neighbors.append((new_state, new_path))
     return neighbors
 
-
-
-
-
-
-
-
+# Run function
 cost, path = dfs(initial_puzzle, goal_state)
 
 
