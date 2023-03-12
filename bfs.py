@@ -1,9 +1,14 @@
 from collections import deque
 import time
 
-# initial_puzzle = [6,1,2,3,4,5,8,7,0]
-# goal_state =     [1,2,3,4,5,6,7,8,0]
-#calculte time before start the program
+
+goal_state = [1,2,3,
+              4,5,6,
+              7,8,0]
+initial_puzzle = [0,4,8,
+                  7,3,5,
+                  2,6,1]
+
 
 initial_puzzle = [1,2,3,4,5,6,7,8,0]
 goal_state = [1,8,2,0,4,3,7,6,5]
@@ -26,38 +31,28 @@ def is_solvable(initial_state, goal_state):
     # If the number of inversions is odd, the puzzle is not solvable
     return inversions % 2 == 0
 
-# initial_puzzle = [1,2,3,
-#                   4,5,0,
-#                   7,8,6]
-# goal_state =     [1,2,3,
-#                   4,5,6,
-#                   7,8,0]
-
-start_time = time.time()
 
 
 def bfs(initial_state, goal_state):
     if not is_solvable(initial_state, goal_state):
         print("Not solvable")
     first_state = [initial_state, ["start"]]
-
     dequeStructure = deque()
     dequeStructure.appendleft(first_state)
     visited = {}
-    
-    
+
     # Loop until the stack is empty, if found return the path and amount of moves.
     while dequeStructure:
         # Pop the top state from the stack
         state = dequeStructure.pop()
+
+        #check size of visited
+
         check_state = state[0]
         # Check if the state is the goal state
         if check_state == goal_state:
             final_path = state[1]
-
             return (len(final_path)-1), final_path # The -1 is to remove the "start" from the path
-
-        
         # Add the state to the explored set
         stateAsString = ''.join(str(i) for i in state[0])
         visited[stateAsString] = stateAsString
@@ -69,9 +64,7 @@ def bfs(initial_state, goal_state):
             checkThis = ''.join(str(i) for i in successor[0]) 
             if checkThis not in visited:
                 # Add the successor to the stack with the path to reach it
-
                 dequeStructure.appendleft(successor)
-
     # If the goal state is not found, return None
     print("Not found end state.")
     return None
@@ -81,7 +74,6 @@ def bfs(initial_state, goal_state):
 
 def find_neighbors(state, visited):
     # Get the indexLocation of the 0 value to know what tile is empty
-
     indexLocation = state[0].index(0)
     # Get the row and column of the blank tile
     row = indexLocation // 3
@@ -97,9 +89,6 @@ def find_neighbors(state, visited):
         new_state_check = ''.join(str(i) for i in new_state)
         if new_state_check not in visited:
             new_path = state[1] + ["up"]
-            if new_state == goal_state:
-                print("Found goal state")
-                return [(new_state, new_path)] 
             neighbors.append((new_state, new_path))
     # Check if the zero tile is not in the last row
     if row != 2:
@@ -109,9 +98,7 @@ def find_neighbors(state, visited):
         # Add the new state to the list of neighbors
         new_state_check = ''.join(str(i) for i in new_state)
         if new_state_check not in visited:
-            if new_state == goal_state:
-                print("Found goal state")
-                return [(new_state, new_path)]
+
             new_path = state[1] + ["down"]
             neighbors.append((new_state, new_path))
     # Check if the zero tile is not in the first column
@@ -122,9 +109,7 @@ def find_neighbors(state, visited):
         # Add the new state to the list of neighbors
         new_state_check = ''.join(str(i) for i in new_state)
         if new_state_check not in visited:
-            if new_state == goal_state:
-                print("Found goal state")
-                return [(new_state, new_path)]
+
             new_path = state[1] + ["left"]
             neighbors.append((new_state, new_path))
     # Check if the zero tile is not in the last column
@@ -135,21 +120,16 @@ def find_neighbors(state, visited):
         # Add the new state to the list of successors
         new_state_check = ''.join(str(i) for i in new_state)
         if new_state_check not in visited:
-            if new_state == goal_state:
-                print("Found goal state")
-                return [(new_state, new_path)]
+
             new_path = state[1] + ["right"]
             neighbors.append((new_state, new_path))
     return neighbors
 
-# Check if the puzzle is solvable
+
+start_time = time.time()
 try:
-    cost, path = bfs(initial_puzzle, goal_state)
-    print("The path is ", path, " and the cost is ", cost, " and the time is to execute was", round((time.time() - start_time), 5), "seconds")
+    cost, path = dfs(initial_puzzle, goal_state)
+    print("The path is", path, "\nThe amount of moves is " + str(cost) + ".\nThe time is to execute was", round((time.time() - start_time), 6), "seconds.")
 except:
-    print("Not solvable")
+    print("Not solvable because")
 
-
-
-
-# More comments.

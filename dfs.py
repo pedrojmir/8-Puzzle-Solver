@@ -21,7 +21,6 @@ def is_solvable(initial_state, goal_state):
     return inversions % 2 == 0
 
 
-start_time = time.time()
 
 
 def dfs(initial_state, goal_state):
@@ -59,8 +58,6 @@ def dfs(initial_state, goal_state):
     return None
 
 
-
-
 def find_neighbors(state, visited):
     # Get the indexLocation of the 0 value to know what tile is empty
 
@@ -80,7 +77,6 @@ def find_neighbors(state, visited):
         if new_state_check not in visited:
             new_path = state[1] + ["up"]
             if new_state == goal_state:
-                print("Found goal state")
                 return [(new_state, new_path)] 
             neighbors.append((new_state, new_path))
     # Check if the zero tile is not in the last row
@@ -92,7 +88,6 @@ def find_neighbors(state, visited):
         new_state_check = ''.join(str(i) for i in new_state)
         if new_state_check not in visited:
             if new_state == goal_state:
-                print("Found goal state")
                 return [(new_state, new_path)]
             new_path = state[1] + ["down"]
             neighbors.append((new_state, new_path))
@@ -105,7 +100,6 @@ def find_neighbors(state, visited):
         new_state_check = ''.join(str(i) for i in new_state)
         if new_state_check not in visited:
             if new_state == goal_state:
-                print("Found goal state")
                 return [(new_state, new_path)]
             new_path = state[1] + ["left"]
             neighbors.append((new_state, new_path))
@@ -118,20 +112,18 @@ def find_neighbors(state, visited):
         new_state_check = ''.join(str(i) for i in new_state)
         if new_state_check not in visited:
             if new_state == goal_state:
-                print("Found goal state")
                 return [(new_state, new_path)]
             new_path = state[1] + ["right"]
             neighbors.append((new_state, new_path))
     return neighbors
 
 
+start_time = time.time()
 
-
-# Check if the puzzle is solvable
 try:
     cost, path = dfs(initial_puzzle, goal_state)
-    print("The path is ", path, " and the cost is ", cost, " and the time is to execute was", round((time.time() - start_time), 4), "seconds")
+    print("The path is", path, "\nThe amount of moves is " + str(cost) + ".\nThe time is to execute was", round((time.time() - start_time), 6), "seconds.")
 except:
     print("Not solvable")
 
-# More comments.
+
