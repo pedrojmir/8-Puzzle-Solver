@@ -81,8 +81,6 @@ def find_neighbors(state, visited):
         new_state_check = ''.join(str(i) for i in new_state)
         if new_state_check not in visited:
             new_path = state[1] + ["up"]
-            if new_state == goal_state:
-                return [(new_state, new_path)] 
             neighbors.append((new_state, new_path))
     # Check if the zero tile is not in the last row
     if row != 2:
@@ -92,8 +90,6 @@ def find_neighbors(state, visited):
         # Add the new state to the list of neighbors
         new_state_check = ''.join(str(i) for i in new_state)
         if new_state_check not in visited:
-            if new_state == goal_state:
-                return [(new_state, new_path)]
             new_path = state[1] + ["down"]
             neighbors.append((new_state, new_path))
     # Check if the zero tile is not in the first column
@@ -104,8 +100,6 @@ def find_neighbors(state, visited):
         # Add the new state to the list of neighbors
         new_state_check = ''.join(str(i) for i in new_state)
         if new_state_check not in visited:
-            if new_state == goal_state:
-                return [(new_state, new_path)]
             new_path = state[1] + ["left"]
             neighbors.append((new_state, new_path))
     # Check if the zero tile is not in the last column
@@ -116,8 +110,6 @@ def find_neighbors(state, visited):
         # Add the new state to the list of successors
         new_state_check = ''.join(str(i) for i in new_state)
         if new_state_check not in visited:
-            if new_state == goal_state:
-                return [(new_state, new_path)]
             new_path = state[1] + ["right"]
             neighbors.append((new_state, new_path))
     return neighbors
@@ -127,4 +119,4 @@ try:
     cost, path = dfs(initial_puzzle, goal_state)
     print("The path is", path, "\nThe amount of moves is " + str(cost) + ".\nThe time is to execute was", round((time.time() - start_time), 6), "seconds.")
 except:
-    print("Not solvable")
+    print("Not solvable because")

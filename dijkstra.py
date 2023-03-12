@@ -11,6 +11,7 @@ initial_puzzle = [1,2,4,
                   6,7,3,
                   8,5,0]
 
+
 # Check if initial puzzle is solvable by counting the number of inversions in the initial state and the goal state
 # If the number of inversions is odd, the puzzle is not solvable
 def is_solvable(initial_state, goal_state):
