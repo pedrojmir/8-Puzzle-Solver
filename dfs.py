@@ -22,7 +22,6 @@ def is_solvable(initial_state, goal_state):
 
 
 
-
 def dfs(initial_state, goal_state):
     if not is_solvable(initial_state, goal_state):
         print("Not solvable")
@@ -125,5 +124,3 @@ try:
     print("The path is", path, "\nThe amount of moves is " + str(cost) + ".\nThe time is to execute was", round((time.time() - start_time), 6), "seconds.")
 except:
     print("Not solvable")
-
-
