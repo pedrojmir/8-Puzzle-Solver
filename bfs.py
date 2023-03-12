@@ -30,6 +30,7 @@ def dfs(initial_state, goal_state):
         print("Not solvable")
         return None
     first_state = [initial_state, ["start"]]
+
     dequeStructure = deque()
     dequeStructure.appendleft(first_state)
     visited = {}
@@ -44,7 +45,9 @@ def dfs(initial_state, goal_state):
         # Check if the state is the goal state
         if check_state == goal_state:
             final_path = state[1]
+
             return (len(final_path)-1), final_path # The -1 is to remove the "start" from the path
+
         
         # Add the state to the explored set
         stateAsString = ''.join(str(i) for i in state[0])
@@ -57,7 +60,9 @@ def dfs(initial_state, goal_state):
             checkThis = ''.join(str(i) for i in successor[0]) 
             if checkThis not in visited:
                 # Add the successor to the stack with the path to reach it
+
                 dequeStructure.appendleft(successor)
+
     # If the goal state is not found, return None
     print("Not found end state.")
     return None
