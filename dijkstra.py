@@ -3,7 +3,7 @@ import time, heapq
 heapQStructure = []
 visited = {}
 
-goal_state =      [1,2,3,
+goal_state =     [1,2,3,
                   4,5,6,
                   7,8,0]
 
