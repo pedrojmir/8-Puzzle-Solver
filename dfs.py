@@ -1,7 +1,7 @@
 import time
-# DIFFICULT
-# initial_puzzle = [6,1,2,3,4,5,8,7,0]
-# goal_state =     [1,2,3,4,5,6,7,8,0]
+
+initial_puzzle = [6,1,2,3,4,5,8,7,0]
+goal_state =     [1,2,3,4,5,6,7,8,0]
 
 # Check if initial puzzle is solvable by counting the number of inversions in the initial state and the goal state
 # If the number of inversions is odd, the puzzle is not solvable
@@ -27,14 +27,12 @@ def is_solvable(initial_state, goal_state):
 #                   4,5,6,
 #                   7,8,0]
 
-print(is_solvable(initial_puzzle, goal_state))
 start_time = time.time()
 
 
 def dfs(initial_state, goal_state):
     if not is_solvable(initial_state, goal_state):
         print("Not solvable")
-        return None
     first_state = [initial_state, ["start"]]
     stack = [first_state]
     visited = []
@@ -128,10 +126,11 @@ def find_neighbors(state, visited):
 
 
 
-
-
-cost, path = dfs(initial_puzzle, goal_state)
-end_time = time.time()
-print("The path is ", path, " and the cost is ", cost, " and the time is to execute was", (start_time))
+# Check if the puzzle is solvable
+try:
+    cost, path = dfs(initial_puzzle, goal_state)
+    print("The path is ", path, " and the cost is ", cost, " and the time is to execute was", round((time.time() - start_time), 4), "seconds")
+except:
+    print("Not solvable")
 
 # More comments.
