@@ -4,7 +4,9 @@ import time
 goal_state = [1,2,3,
               4,5,6,
               7,8,0]
-initial_puzzle = [0,4,8,7,3,5,2,6,1]
+initial_puzzle = [0,4,8,
+                  7,3,5,
+                  2,6,1]
 
 # Check if initial puzzle is solvable by counting the number of inversions in the initial state and the goal state
 # If the number of inversions is odd, the puzzle is not solvable
@@ -30,12 +32,9 @@ def dfs(initial_state, goal_state):
         print("Not solvable")
         return None
     first_state = [initial_state, ["start"]]
-
     dequeStructure = deque()
     dequeStructure.appendleft(first_state)
     visited = {}
-    
-    
     # Loop until the stack is empty, if found return the path and amount of moves.
     while dequeStructure:
         # Pop the top state from the stack
@@ -45,10 +44,7 @@ def dfs(initial_state, goal_state):
         # Check if the state is the goal state
         if check_state == goal_state:
             final_path = state[1]
-
             return (len(final_path)-1), final_path # The -1 is to remove the "start" from the path
-
-        
         # Add the state to the explored set
         stateAsString = ''.join(str(i) for i in state[0])
         visited[stateAsString] = stateAsString
@@ -60,9 +56,7 @@ def dfs(initial_state, goal_state):
             checkThis = ''.join(str(i) for i in successor[0]) 
             if checkThis not in visited:
                 # Add the successor to the stack with the path to reach it
-
                 dequeStructure.appendleft(successor)
-
     # If the goal state is not found, return None
     print("Not found end state.")
     return None
@@ -72,7 +66,6 @@ def dfs(initial_state, goal_state):
 
 def find_neighbors(state, visited):
     # Get the indexLocation of the 0 value to know what tile is empty
-
     indexLocation = state[0].index(0)
     # Get the row and column of the blank tile
     row = indexLocation // 3
@@ -129,9 +122,7 @@ def find_neighbors(state, visited):
             neighbors.append((new_state, new_path))
     return neighbors
 
-
 start_time = time.time()
-
 try:
     cost, path = dfs(initial_puzzle, goal_state)
     print("The path is", path, "\nThe amount of moves is " + str(cost) + ".\nThe time is to execute was", round((time.time() - start_time), 6), "seconds.")
