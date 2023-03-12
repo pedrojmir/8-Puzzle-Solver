@@ -36,10 +36,9 @@ def is_solvable(initial_state, goal_state):
 start_time = time.time()
 
 
-def dfs(initial_state, goal_state):
+def bfs(initial_state, goal_state):
     if not is_solvable(initial_state, goal_state):
         print("Not solvable")
-        return None
     first_state = [initial_state, ["start"]]
 
     dequeStructure = deque()
@@ -143,10 +142,14 @@ def find_neighbors(state, visited):
             neighbors.append((new_state, new_path))
     return neighbors
 
-cost, path = dfs(initial_puzzle, goal_state)
+# Check if the puzzle is solvable
+try:
+    cost, path = bfs(initial_puzzle, goal_state)
+    print("The path is ", path, " and the cost is ", cost, " and the time is to execute was", (time.time() - start_time), "seconds")
+except:
+    print("Not solvable")
 
 
-print("The path is ", path, " and the cost is ", cost, " and the time is to execute was", (time.time() - start_time), "seconds")
 
 
 # More comments.
