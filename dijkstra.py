@@ -36,7 +36,7 @@ def dijkstra(initial_state, goal_state):
     # Create the first state with cost to reach, initial board_state, & path.
     first_state = [0,initial_state, []]
     heapq.heappush(heapQStructure, (first_state[0], first_state)) # Push (total_cost,[total_cost,initial_state, ["start"]]) 
-    
+
     # Loop until the heapQStructure is empty, if found return the path and amount of moves.
     while heapQStructure:
         # Pop the top state from the heapQStructure
@@ -99,7 +99,7 @@ def find_neighbors(state, visited, total_cost):
         new_state = state[1][:]
         new_state[indexLocation], new_state[indexLocation + 3] = new_state[indexLocation + 3], new_state[indexLocation]
         new_total_cost = new_state[indexLocation] + total_cost
-        neighbors.append((new_total_cost, [new_total_cost, new_state, state[2] + ["updown"]]))
+        neighbors.append((new_total_cost, [new_total_cost, new_state, state[2] + ["up"]]))
     if col != 0:
         # Move the tile right
         new_state = state[1][:]
@@ -116,7 +116,6 @@ def find_neighbors(state, visited, total_cost):
 
 
 start_time = time.time()
-
 try:
     cost, path = dijkstra(initial_puzzle, goal_state)
     print("The path is", path, "\nThe weighted-cost is " + str(cost) + ".\nThe time is to execute was", round((time.time() - start_time), 6), "seconds.")
