@@ -145,7 +145,7 @@ def find_neighbors(state, visited):
 # Check if the puzzle is solvable
 try:
     cost, path = bfs(initial_puzzle, goal_state)
-    print("The path is ", path, " and the cost is ", cost, " and the time is to execute was", (time.time() - start_time), "seconds")
+    print("The path is ", path, " and the cost is ", cost, " and the time is to execute was", round((time.time() - start_time), 5), "seconds")
 except:
     print("Not solvable")
 
