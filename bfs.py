@@ -1,10 +1,10 @@
 from collections import deque
 import time
 
-initial_puzzle = [6,1,2,3,4,5,8,7,0]
-goal_state =     [1,2,3,4,5,6,7,8,0]
-#calculte time before start the program
-
+goal_state = [1,2,3,
+              4,5,6,
+              7,8,0]
+initial_puzzle = [0,4,8,7,3,5,2,6,1]
 
 # Check if initial puzzle is solvable by counting the number of inversions in the initial state and the goal state
 # If the number of inversions is odd, the puzzle is not solvable
@@ -23,16 +23,6 @@ def is_solvable(initial_state, goal_state):
     # If the number of inversions is odd, the puzzle is not solvable
     return inversions % 2 == 0
 
-# initial_puzzle = [1,2,3,
-#                   4,5,0,
-#                   7,8,6]
-# goal_state =     [1,2,3,
-#                   4,5,6,
-#                   7,8,0]
-
-print(is_solvable(initial_puzzle, goal_state))
-
-start_time = time.time()
 
 
 def dfs(initial_state, goal_state):
@@ -49,10 +39,7 @@ def dfs(initial_state, goal_state):
     while dequeStructure:
         # Pop the top state from the stack
         state = dequeStructure.pop()
-        #check size of dequeStructure
-        #print(len(dequeStructure))
         #check size of visited
-        print("Visited length: ", len(visited))
         check_state = state[0]
         # Check if the state is the goal state
         if check_state == goal_state:
@@ -97,7 +84,6 @@ def find_neighbors(state, visited):
         if new_state_check not in visited:
             new_path = state[1] + ["up"]
             if new_state == goal_state:
-                print("Found goal state")
                 return [(new_state, new_path)] 
             neighbors.append((new_state, new_path))
     # Check if the zero tile is not in the last row
@@ -109,7 +95,6 @@ def find_neighbors(state, visited):
         new_state_check = ''.join(str(i) for i in new_state)
         if new_state_check not in visited:
             if new_state == goal_state:
-                print("Found goal state")
                 return [(new_state, new_path)]
             new_path = state[1] + ["down"]
             neighbors.append((new_state, new_path))
@@ -122,7 +107,6 @@ def find_neighbors(state, visited):
         new_state_check = ''.join(str(i) for i in new_state)
         if new_state_check not in visited:
             if new_state == goal_state:
-                print("Found goal state")
                 return [(new_state, new_path)]
             new_path = state[1] + ["left"]
             neighbors.append((new_state, new_path))
@@ -135,22 +119,16 @@ def find_neighbors(state, visited):
         new_state_check = ''.join(str(i) for i in new_state)
         if new_state_check not in visited:
             if new_state == goal_state:
-                print("Found goal state")
                 return [(new_state, new_path)]
             new_path = state[1] + ["right"]
             neighbors.append((new_state, new_path))
     return neighbors
 
 
+start_time = time.time()
 
-
-
-
-
-
-cost, path = dfs(initial_puzzle, goal_state)
-
-
-print("The path is ", path, " and the cost is ", cost, " and the time is to execute was", (time.time() - start_time), "seconds")
-
-# More comments.
+try:
+    cost, path = dfs(initial_puzzle, goal_state)
+    print("The path is", path, "\nThe amount of moves is " + str(cost) + ".\nThe time is to execute was", round((time.time() - start_time), 6), "seconds.")
+except:
+    print("Not solvable")
