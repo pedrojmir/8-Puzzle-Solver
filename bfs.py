@@ -1,18 +1,12 @@
 from collections import deque
 import time
 
-
 goal_state = [1,2,3,
               4,5,6,
               7,8,0]
 initial_puzzle = [0,4,8,
                   7,3,5,
                   2,6,1]
-
-
-initial_puzzle = [1,2,3,4,5,6,7,8,0]
-goal_state = [1,8,2,0,4,3,7,6,5]
-
 
 # Check if initial puzzle is solvable by counting the number of inversions in the initial state and the goal state
 # If the number of inversions is odd, the puzzle is not solvable
@@ -33,21 +27,19 @@ def is_solvable(initial_state, goal_state):
 
 
 
-def bfs(initial_state, goal_state):
+def dfs(initial_state, goal_state):
     if not is_solvable(initial_state, goal_state):
         print("Not solvable")
+        return None
     first_state = [initial_state, ["start"]]
     dequeStructure = deque()
     dequeStructure.appendleft(first_state)
     visited = {}
-
     # Loop until the stack is empty, if found return the path and amount of moves.
     while dequeStructure:
         # Pop the top state from the stack
         state = dequeStructure.pop()
-
         #check size of visited
-
         check_state = state[0]
         # Check if the state is the goal state
         if check_state == goal_state:
@@ -98,7 +90,6 @@ def find_neighbors(state, visited):
         # Add the new state to the list of neighbors
         new_state_check = ''.join(str(i) for i in new_state)
         if new_state_check not in visited:
-
             new_path = state[1] + ["down"]
             neighbors.append((new_state, new_path))
     # Check if the zero tile is not in the first column
@@ -109,7 +100,6 @@ def find_neighbors(state, visited):
         # Add the new state to the list of neighbors
         new_state_check = ''.join(str(i) for i in new_state)
         if new_state_check not in visited:
-
             new_path = state[1] + ["left"]
             neighbors.append((new_state, new_path))
     # Check if the zero tile is not in the last column
@@ -120,11 +110,9 @@ def find_neighbors(state, visited):
         # Add the new state to the list of successors
         new_state_check = ''.join(str(i) for i in new_state)
         if new_state_check not in visited:
-
             new_path = state[1] + ["right"]
             neighbors.append((new_state, new_path))
     return neighbors
-
 
 start_time = time.time()
 try:
@@ -132,4 +120,3 @@ try:
     print("The path is", path, "\nThe amount of moves is " + str(cost) + ".\nThe time is to execute was", round((time.time() - start_time), 6), "seconds.")
 except:
     print("Not solvable because")
-
